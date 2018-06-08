@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   ngOnInit() {
   }
@@ -18,6 +19,15 @@ export class SignupComponent implements OnInit {
     const password = form.value.password;
 
     console.log(email, password);
+    
+    this.http.post('https://dry-stream-69567.herokuapp.com/users', JSON.stringify({
+      "email" : email,
+      "password" : password
+    })).subscribe(
+      (response) => console.log(response),
+      (error) => console.log('An error occurred', error),
+      () => alert('You have successfully signed up!')
+    )
   }
 
 }
