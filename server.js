@@ -15,7 +15,7 @@ const app = express();
 
 // app.use(forceSSL());
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/dist/pw-keychain'));
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/pw-keychain/index.html'));
