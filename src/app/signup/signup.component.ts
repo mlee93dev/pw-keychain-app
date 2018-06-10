@@ -20,10 +20,10 @@ export class SignupComponent implements OnInit {
 
     console.log(email, password);
     
-    this.http.post('https://dry-stream-69567.herokuapp.com/users', JSON.stringify({
+    this.http.post('https://dry-stream-69567.herokuapp.com/users', {
       "email" : email,
       "password" : password
-    })).subscribe(
+    }).subscribe(
       (response) => console.log(response),
       (error) => console.log('An error occurred', error),
       () => alert('You have successfully signed up!')
