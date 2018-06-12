@@ -7,22 +7,22 @@
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('./../../assets/fonts/poppins/Poppins-Regular.ttf'); 
+  src: url('./../../../assets/fonts/poppins/Poppins-Regular.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('./../../assets/fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('./../../../assets/fonts/poppins/Poppins-Bold.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('./../../assets/fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('./../../../assets/fonts/poppins/Poppins-Medium.ttf'); 
 }
 
 @font-face {
   font-family: Montserrat-Bold;
-  src: url('./../../assets/fonts/montserrat/Montserrat-Bold.ttf'); 
+  src: url('./../../../assets/fonts/montserrat/Montserrat-Bold.ttf'); 
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -176,7 +176,7 @@ iframe {
 }
 
 .wrap-login100 {
-  width: 500px;
+  width: 960px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -188,7 +188,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 177px 95px 33px 95px;
+  padding: 177px 130px 33px 95px;
 }
 
 /*------------------------------------------------------------------
