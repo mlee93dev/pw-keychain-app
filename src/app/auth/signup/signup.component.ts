@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuthenticated()){
-      this.router.navigate(['search']);
+      this.router.navigate(['']);
     }
   }
 

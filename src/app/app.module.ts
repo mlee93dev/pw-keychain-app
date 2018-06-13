@@ -5,23 +5,23 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
-import { SearchComponent } from './search/search.component';
-import { AddAccountComponent } from './add-account/add-account.component';
 import { FormsModule } from '@angular/forms';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
+import { HeaderComponent } from './core/header/header.component';
+import { HomeComponent } from './core/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SearchComponent,
-    AddAccountComponent,
-    SignupComponent
+    SignupComponent,
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
-  BrowserModule,
+BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpModule

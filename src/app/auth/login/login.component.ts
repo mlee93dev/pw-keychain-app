@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuthenticated()){
-      this.router.navigate(['search']);
+      console.log('token exists')
+      this.router.navigate(['']);
     }
   }
 
@@ -39,16 +40,9 @@ export class LoginComponent implements OnInit {
       (error) => console.log(error),
       () => {
         console.log(token);
-        const tokens = JSON.parse(window.localStorage.getItem('tokens'));
-        // Persistence
-        if (tokens.indexOf(token) !== -1) {
-          return;
-        }
-        // Outdated token or tokens property doesn't exist
-        else {
-          const tokens = [token];
-          window.localStorage.setItem('tokens', JSON.stringify(tokens));
-        }
+        const tokens = [token];
+        window.localStorage.setItem('tokens', JSON.stringify(tokens));
+        this.router.navigate(['']);
       }
     )
   }

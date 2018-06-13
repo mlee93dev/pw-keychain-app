@@ -1,12 +1,17 @@
 import { Injectable } from "@angular/core";
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService{
 
-  constructor(){}
+  constructor(public router: Router){}
 
   isAuthenticated(){
-    const token = window.localStorage.getItem('tokens')[0];
-    return token ? true : false;
+    return window.localStorage.getItem('tokens') ? true : false;
+  }
+
+  logOut(){
+    window.localStorage.removeItem('tokens');
+    this.router.navigate(['login']);
   }
 }
