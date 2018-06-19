@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import swal from 'sweetalert'
 import { Http, Headers } from '@angular/http';
@@ -17,10 +17,15 @@ export class HeaderComponent implements OnInit {
               private http: Http) { }
 
   ngOnInit() {
+    this.isAuthenticated = this.authService.isAuthenticated();
     this.authSubscription = this.authService.authChange
       .subscribe((tokenExists: boolean) => {
         this.isAuthenticated = tokenExists;
       });
+  }
+
+  ngOnDestroy() {
+    if (this.authSubscription) this.authSubscription.unsubscribe();
   }
 
   onLogOut(){
@@ -42,7 +47,8 @@ export class HeaderComponent implements OnInit {
         {headers: new Headers({'x-auth': token})})
           .subscribe(
             (response) => console.log(response),
-            (error) => {
+            (error) => {  //diversify error handling in the future.
+              this.isAuthenticated = false;
               const err = JSON.parse(error._body);
               throw new Error(err.name);
             },
