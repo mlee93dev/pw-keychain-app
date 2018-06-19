@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.authService.isAuthenticated()){
       console.log('token exists')
+      const token = JSON.parse(window.localStorage.getItem('tokens'))[0];
+      console.log(token);
       this.router.navigate(['']);
     }
   }
@@ -37,7 +39,9 @@ export class LoginComponent implements OnInit {
         console.log(response);
         token = response.headers.get('x-auth');
       },
-      (error) => console.log(error),
+      (error) => {
+        alert(JSON.parse(error._body).errmsg);
+      },
       () => {
         console.log(token);
         const tokens = [token];

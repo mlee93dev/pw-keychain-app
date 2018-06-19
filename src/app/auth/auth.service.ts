@@ -13,7 +13,7 @@ export class AuthService{
   }
 
   logOut(){
-    const token = JSON.parse(window.localStorage.getItem('tokens')[0]);
+    const token = JSON.parse(window.localStorage.getItem('tokens'))[0];
     this.http.delete('https://dry-stream-69567.herokuapp.com/users/me/token', {headers: new Headers({'x-auth': token})})
       .subscribe(
         (response) => console.log(response),

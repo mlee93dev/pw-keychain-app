@@ -31,14 +31,18 @@ export class SignupComponent implements OnInit {
     }).subscribe(
       (response) => console.log(response),
       (error) => {
+        console.log(error);
         const err = JSON.parse(error._body);
         if (err.code === 11000) {
-          alert('That username is already taken');
+          alert('That username is already taken.');
         } else {
           console.log('An error occurred' + '\n' + error);
         }
       },
-      () => alert('You have successfully signed up!')
+      () => {
+        alert('You have successfully signed up! Please login with your new account.');
+        this.router.navigate(['login']);
+      }
     )
   }
 
