@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuthenticated()){
-      console.log('token exists')
-      const token = JSON.parse(window.localStorage.getItem('tokens'))[0];
-      console.log(token);
       this.router.navigate(['']);
     }
   }
@@ -28,8 +26,6 @@ export class LoginComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     let token;
-
-    console.log(email, password);
 
     this.http.post('https://dry-stream-69567.herokuapp.com/users/login', {
       "email" : email,
@@ -40,12 +36,15 @@ export class LoginComponent implements OnInit {
         token = response.headers.get('x-auth');
       },
       (error) => {
-        alert(JSON.parse(error._body).errmsg);
+        swal({
+          title: JSON.parse(error._body).errmsg,
+          icon: 'error'
+        });
       },
       () => {
-        console.log(token);
         const tokens = [token];
         window.localStorage.setItem('tokens', JSON.stringify(tokens));
+        this.authService.authChange.next(true);
         this.router.navigate(['']);
       }
     )

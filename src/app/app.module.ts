@@ -2,6 +2,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { ErrorHandler } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -11,6 +12,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { HeaderComponent } from './core/header/header.component';
 import { HomeComponent } from './core/home/home.component';
+import { GlobalErrorHandler } from './error-handler';
 
 @NgModule({
   declarations: [
@@ -21,12 +23,15 @@ import { HomeComponent } from './core/home/home.component';
     HomeComponent
   ],
   imports: [
-BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpModule
   ],
-  providers: [
+  providers: [{
+    provide: ErrorHandler,
+    useClass: GlobalErrorHandler
+  },
     AuthService,
     AuthGuard
   ],

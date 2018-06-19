@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import swal from 'sweetalert'
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,15 +10,20 @@ import { Http } from '@angular/http';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  isAuthenticated: boolean;
+  authSubscription: Subscription;
 
   constructor(public authService: AuthService,
               private http: Http) { }
 
   ngOnInit() {
+    this.authSubscription = this.authService.authChange
+      .subscribe((tokenExists: boolean) => {
+        this.isAuthenticated = tokenExists;
+      });
   }
 
   onLogOut(){
-    console.log('logged out');
     this.authService.logOut();
   }
 
@@ -30,17 +36,19 @@ export class HeaderComponent implements OnInit {
         }
       }
     }).then((value) => {
-      this.http.post('https://dry-stream-69567.herokuapp.com/users/add', {
-        "name": value
-      }).subscribe(
-       (response) => console.log(response),
-       (error) => {
-         console.log(error);
-         swal({title: 'An error occurred.', icon: 'error'});
-       },
-       () => swal({title: 'Account successfully added!', icon: 'success'})
-      );
-    });
+      const token = JSON.parse(window.localStorage.getItem('tokens'))[0];
+      console.log(token);
+      this.http.post('https://dry-stream-69567.herokuapp.com/users/add', {"name": value}, 
+        {headers: new Headers({'x-auth': token})})
+          .subscribe(
+            (response) => console.log(response),
+            (error) => {
+              const err = JSON.parse(error._body);
+              throw new Error(err.name);
+            },
+            () => swal({title: 'Account successfully added!', icon: 'success'})
+            );
+          });
   }
 
 }

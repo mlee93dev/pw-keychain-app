@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Http } from '@angular/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-signup',
@@ -34,13 +35,20 @@ export class SignupComponent implements OnInit {
         console.log(error);
         const err = JSON.parse(error._body);
         if (err.code === 11000) {
-          alert('That username is already taken.');
-        } else {
-          console.log('An error occurred' + '\n' + error);
+          swal('That username is already taken.');
+        }
+        else {
+          swal({
+            title: 'An error occurred',
+            icon: 'error'
+          });
         }
       },
       () => {
-        alert('You have successfully signed up! Please login with your new account.');
+        swal({
+          title: 'You have successfully signed up! Please login with your new account.',
+          icon: 'success'
+        });
         this.router.navigate(['login']);
       }
     )
