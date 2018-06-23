@@ -13,6 +13,9 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { HeaderComponent } from './core/header/header.component';
 import { HomeComponent } from './core/home/home.component';
 import { GlobalErrorHandler } from './error-handler';
+import { RedirectComponent } from './redirect/redirect.component';
+import { RedirectGuard } from './redirect/redirect-guard.service';
+import { RedirectService } from './redirect/redirect.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { GlobalErrorHandler } from './error-handler';
     LoginComponent,
     SignupComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,9 @@ import { GlobalErrorHandler } from './error-handler';
     useClass: GlobalErrorHandler
   },
     AuthService,
-    AuthGuard
+    AuthGuard,
+    RedirectGuard,
+    RedirectService
   ],
   bootstrap: [AppComponent]
 })

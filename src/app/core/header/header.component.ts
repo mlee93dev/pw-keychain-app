@@ -17,10 +17,12 @@ export class HeaderComponent implements OnInit {
               private http: Http) { }
 
   ngOnInit() {
+    console.log('init')
     this.isAuthenticated = this.authService.isAuthenticated();
     this.authSubscription = this.authService.authChange
       .subscribe((tokenExists: boolean) => {
         this.isAuthenticated = tokenExists;
+        console.log(this.isAuthenticated)
       });
   }
 
@@ -39,22 +41,35 @@ export class HeaderComponent implements OnInit {
         attributes: {
           placeholder: "Type your account / service name here"
         }
-      }
+      },
+      closeOnClickOutside: true,
+      closeOnEsc: true
     }).then((value) => {
       const token = JSON.parse(window.localStorage.getItem('tokens'))[0];
-      console.log(token);
+      let newToken;
       this.http.post('https://dry-stream-69567.herokuapp.com/users/add', {"name": value}, 
         {headers: new Headers({'x-auth': token})})
           .subscribe(
-            (response) => console.log(response),
-            (error) => {  //diversify error handling in the future.
-              this.isAuthenticated = false;
-              const err = JSON.parse(error._body);
-              throw new Error(err.name);
+            (response) => {
+              console.log(response);
+              newToken = response.headers.get('x-auth');
             },
-            () => swal({title: 'Account successfully added!', icon: 'success'})
-            );
-          });
+            (error) => {
+              // this.isAuthenticated = false;
+              console.log(error);
+              const err = JSON.parse(error._body);
+              throw new Error(err.message);
+            },
+            () => {
+              if (newToken) {
+                console.log('newtoken');
+                const tokens = [newToken];
+                window.localStorage.setItem('tokens', JSON.stringify(tokens));
+              }
+              swal({title: 'Account successfully added!', icon: 'success'});
+            }
+          );
+        });
   }
 
 }

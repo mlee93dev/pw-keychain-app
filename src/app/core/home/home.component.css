@@ -5,10 +5,6 @@
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   padding: 15px;
   background: #9053c7;
   background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
@@ -17,22 +13,62 @@
   background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
 
-/* .wrap-login100 {
-  width: 500px;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
+.filter-buttons {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 177px 95px 33px 95px;
-} */
+  margin-bottom: 20px;
+}
+
+.list-view-button,
+.grid-view-button {
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.list-view-button:hover,
+.grid-view-button:hover {
+  background: white;
+  color: #0e2439;
+}
+
+.list-view-button {
+  margin-right: 10px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  background-color: #1f364d;
+  color: white;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
 
 
+.list.list-view-filter {
+  flex-direction: column;
+}
 
+.list.list-view-filter li {
+  padding: 10px;
+}
 
+.list.grid-view-filter {
+  flex-flow: row wrap;
+}
+
+.list.grid-view-filter li {
+  width: calc(50% - 210px);
+  padding: 100px;
+  margin-right: 10px;
+  text-align: center;
+}

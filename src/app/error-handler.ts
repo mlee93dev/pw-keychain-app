@@ -8,14 +8,17 @@ export class GlobalErrorHandler implements ErrorHandler{
   constructor(private injector: Injector){}
 
   handleError(error){
-    console.log(error);
-    if (error.message == 'TokenExpiredError'){
+    if (error.message == 'jwt expired'){
       swal({title: 'Please login again.', icon: 'error'});
       const authService = this.injector.get(AuthService);
+      authService.authChange.next(false);
       authService.logOut();
     }
-    else{
-      alert('That page does not exist.');
+    else if (error.message){
+      swal({title: error.message, icon: 'error'});
+    }
+    else {
+      swal({title: 'An error occurred.', icon: 'error'});
       const router = this.injector.get(Router);
       router.navigate(['']);
     }

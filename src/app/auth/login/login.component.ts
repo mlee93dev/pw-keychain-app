@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
+import { RedirectService } from '../../redirect/redirect.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private http: Http,
               public authService: AuthService,
-              public router: Router) { }
+              public router: Router,
+              public redirectService: RedirectService) { }
 
   ngOnInit() {
     if (this.authService.isAuthenticated()){
@@ -37,15 +39,17 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         swal({
-          title: JSON.parse(error._body).errmsg,
+          title: JSON.parse(error._body).message,
           icon: 'error'
         });
       },
       () => {
         const tokens = [token];
         window.localStorage.setItem('tokens', JSON.stringify(tokens));
-        this.authService.authChange.next(true);
-        this.router.navigate(['']);
+        // this.authService.authChange.next(true);
+        // this.router.navigate(['']);
+        this.redirectService.redirectRoute = '/';
+        this.router.navigate(['reloading']);
       }
     )
   }
