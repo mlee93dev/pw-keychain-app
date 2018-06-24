@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     this.authSubscription = this.authService.authChange
       .subscribe((tokenExists: boolean) => {
         this.isAuthenticated = tokenExists;
-        console.log(this.isAuthenticated)
+        // console.log(this.isAuthenticated)
       });
   }
 
@@ -54,7 +54,6 @@ export class HeaderComponent implements OnInit {
               newToken = response.headers.get('x-auth');
             },
             (error) => {
-              // this.isAuthenticated = false;
               console.log(error);
               const err = JSON.parse(error._body);
               throw new Error(err.message);

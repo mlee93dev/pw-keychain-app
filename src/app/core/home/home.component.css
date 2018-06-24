@@ -57,6 +57,7 @@ li {
 
 
 .list.list-view-filter {
+  text-align: center;
   flex-direction: column;
 }
 
