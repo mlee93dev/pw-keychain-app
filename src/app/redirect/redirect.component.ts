@@ -15,11 +15,17 @@ export class RedirectComponent implements OnInit {
               public authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.authChange.next(true);
+    if (this.redirectService.logout) {
+      console.log('logout');
+      return setTimeout(() => {
+        this.authService.logOut();
+      }, 500);
+    }
     const redirectRoute = this.redirectService.redirectRoute;
+    this.authService.authChange.next(true);
     setTimeout( () => {
       this.router.navigate([redirectRoute]);
-    }, 1000);
+    }, 500);
   }
 
 }

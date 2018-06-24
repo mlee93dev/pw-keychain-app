@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
               private http: Http) { }
 
   ngOnInit() {
-    console.log('init')
     this.isAuthenticated = this.authService.isAuthenticated();
     this.authSubscription = this.authService.authChange
       .subscribe((tokenExists: boolean) => {

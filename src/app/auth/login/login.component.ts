@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
         window.localStorage.setItem('tokens', JSON.stringify(tokens));
         // this.authService.authChange.next(true);
         // this.router.navigate(['']);
+        this.redirectService.logout = false;
         this.redirectService.redirectRoute = '/';
         this.router.navigate(['reloading']);
       }

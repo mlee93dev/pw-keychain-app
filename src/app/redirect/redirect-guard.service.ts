@@ -8,7 +8,7 @@ export class RedirectGuard implements CanActivate{
   constructor(public redirectService: RedirectService){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-    if (this.redirectService.redirectRoute){
+    if (this.redirectService.redirectRoute || this.redirectService.logout){
       return true;
     }
     else{
