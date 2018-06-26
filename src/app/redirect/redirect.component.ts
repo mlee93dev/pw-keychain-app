@@ -16,7 +16,6 @@ export class RedirectComponent implements OnInit {
 
   ngOnInit() {
     if (this.redirectService.logout) {
-      console.log('logout');
       return setTimeout(() => {
         this.authService.logOut();
       }, 500);
@@ -27,5 +26,4 @@ export class RedirectComponent implements OnInit {
       this.router.navigate([redirectRoute]);
     }, 500);
   }
-
 }

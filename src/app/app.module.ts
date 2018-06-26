@@ -16,6 +16,7 @@ import { GlobalErrorHandler } from './error-handler';
 import { RedirectComponent } from './redirect/redirect.component';
 import { RedirectGuard } from './redirect/redirect-guard.service';
 import { RedirectService } from './redirect/redirect.service';
+import { AccountsService } from './core/accounts.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { RedirectService } from './redirect/redirect.service';
     AuthService,
     AuthGuard,
     RedirectGuard,
-    RedirectService
+    RedirectService,
+    AccountsService
   ],
   bootstrap: [AppComponent]
 })

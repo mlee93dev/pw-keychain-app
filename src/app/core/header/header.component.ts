@@ -3,6 +3,7 @@ import { AuthService } from '../../auth/auth.service';
 import swal from 'sweetalert'
 import { Http, Headers } from '@angular/http';
 import { Subscription } from 'rxjs';
+import { AccountsService } from '../accounts.service';
 
 @Component({
   selector: 'app-header',
@@ -14,14 +15,14 @@ export class HeaderComponent implements OnInit {
   authSubscription: Subscription;
 
   constructor(public authService: AuthService,
-              private http: Http) { }
+              private http: Http,
+              public accountsService: AccountsService) { }
 
   ngOnInit() {
     this.isAuthenticated = this.authService.isAuthenticated();
     this.authSubscription = this.authService.authChange
       .subscribe((tokenExists: boolean) => {
         this.isAuthenticated = tokenExists;
-        // console.log(this.isAuthenticated)
       });
   }
 
@@ -44,6 +45,9 @@ export class HeaderComponent implements OnInit {
       closeOnClickOutside: true,
       closeOnEsc: true
     }).then((value) => {
+      if (!value) {
+        return false;
+      }
       const token = JSON.parse(window.localStorage.getItem('tokens'))[0];
       let newToken;
       this.http.post('https://dry-stream-69567.herokuapp.com/users/add', {"name": value}, 
@@ -59,15 +63,27 @@ export class HeaderComponent implements OnInit {
               throw new Error(err.message);
             },
             () => {
-              if (newToken) {
-                console.log('newtoken');
+              if (newToken !== 'undefined') {
                 const tokens = [newToken];
                 window.localStorage.setItem('tokens', JSON.stringify(tokens));
               }
+              this.http.get('https://dry-stream-69567.herokuapp.com/users/me/accounts', 
+              {headers: new Headers({'x-auth': token})})
+                .subscribe(
+                  (response) => {
+                    console.log(response);
+                    this.accountsService.accountsUpdate.next(JSON.parse(response.text()));
+                  },
+                  (error) => {
+                    console.log(error);
+                    const err = JSON.parse(error._body);
+                    throw new Error(err.message);
+                  }
+                );
               swal({title: 'Account successfully added!', icon: 'success'});
             }
           );
-        });
+      });
   }
 
 }

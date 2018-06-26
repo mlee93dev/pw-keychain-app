@@ -20,7 +20,6 @@ export class GlobalErrorHandler implements ErrorHandler{
       redirectService.logout = true;
       authService.authChange.next(false);
       router.navigate(['reloading']);
-      // authService.logOut();
     }
     else if (error.message){
       swal({title: error.message, icon: 'error'});

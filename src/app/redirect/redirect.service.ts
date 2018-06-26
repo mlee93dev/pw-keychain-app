@@ -1,7 +1,5 @@
-import { Subject } from "rxjs";
-
 export class RedirectService{
-  canRedirect = false;
+  canRedirect: boolean;
   redirectRoute: string;
   logout: boolean;
 }
