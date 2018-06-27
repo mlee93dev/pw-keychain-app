@@ -7,8 +7,8 @@
           
           
           <ol [ngClass]="{'list-view-filter': toggleList, 'grid-view-filter': !toggleList}" class="list">
-            <li *ngFor="let account of accounts">
-              <i class="fa fa-trash" (click)="onDelete(account._id, account.name)"></i>
+            <li class="pointer" *ngFor="let account of accounts" (click)="copyToClipboard(account.password)">
+              <i class="fa fa-trash" (click)="onDelete(account.name)"></i>
               {{account.name}}
             </li>
           </ol>

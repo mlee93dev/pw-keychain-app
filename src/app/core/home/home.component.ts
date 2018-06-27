@@ -61,7 +61,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.toggleList = false;
   }
 
-  onDelete(id: string, name: string){
+  copyToClipboard(password: string){
+    var dummy = document.createElement("input");
+    document.body.appendChild(dummy);
+    dummy.setAttribute('value', password);
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
+  }
+
+  onDelete(name: string){
     swal({
       title: `Are you sure you want to delete ${name}?`,
       icon: 'warning',
