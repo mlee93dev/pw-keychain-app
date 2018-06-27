@@ -7,13 +7,10 @@
           
           
           <ol [ngClass]="{'list-view-filter': toggleList, 'grid-view-filter': !toggleList}" class="list">
-            <li *ngFor="let account of accounts">{{account.name}}</li>
-            <!-- <li>List item 1</li>
-            <li>List item 2</li>
-            <li>List item 3</li>
-            <li>List item 4</li>
-            <li>List item 5</li>
-            <li>List item 6</li> -->
+            <li *ngFor="let account of accounts">
+              <i class="fa fa-trash" (click)="onDelete(account._id, account.name)"></i>
+              {{account.name}}
+            </li>
           </ol>
 
     </div>

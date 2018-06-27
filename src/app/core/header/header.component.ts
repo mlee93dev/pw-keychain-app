@@ -60,7 +60,13 @@ export class HeaderComponent implements OnInit {
             (error) => {
               console.log(error);
               const err = JSON.parse(error._body);
-              throw new Error(err.message);
+              if (err.message === 'jwt expired') {
+                this.authService.logOut();
+                swal({title: 'Please login again.', icon: 'error'});
+              }
+              else {
+                swal({title: err.message, icon: 'error'});
+              }
             },
             () => {
               if (newToken !== 'undefined') {
@@ -77,7 +83,13 @@ export class HeaderComponent implements OnInit {
                   (error) => {
                     console.log(error);
                     const err = JSON.parse(error._body);
-                    throw new Error(err.message);
+                    if (err.message === 'jwt expired') {
+                      this.authService.logOut();
+                      swal({title: 'Please login again.', icon: 'error'});
+                    }
+                    else {
+                      swal({title: err.message, icon: 'error'});
+                    }
                   }
                 );
               swal({title: 'Account successfully added!', icon: 'success'});

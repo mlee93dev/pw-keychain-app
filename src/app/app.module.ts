@@ -2,7 +2,6 @@ import { AppRoutingModule } from './app-routing-module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { ErrorHandler } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -12,10 +11,6 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { HeaderComponent } from './core/header/header.component';
 import { HomeComponent } from './core/home/home.component';
-import { GlobalErrorHandler } from './error-handler';
-import { RedirectComponent } from './redirect/redirect.component';
-import { RedirectGuard } from './redirect/redirect-guard.service';
-import { RedirectService } from './redirect/redirect.service';
 import { AccountsService } from './core/accounts.service';
 
 @NgModule({
@@ -24,8 +19,7 @@ import { AccountsService } from './core/accounts.service';
     LoginComponent,
     SignupComponent,
     HeaderComponent,
-    HomeComponent,
-    RedirectComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,14 +27,9 @@ import { AccountsService } from './core/accounts.service';
     FormsModule,
     HttpModule
   ],
-  providers: [{
-    provide: ErrorHandler,
-    useClass: GlobalErrorHandler
-  },
+  providers: [
     AuthService,
     AuthGuard,
-    RedirectGuard,
-    RedirectService,
     AccountsService
   ],
   bootstrap: [AppComponent]

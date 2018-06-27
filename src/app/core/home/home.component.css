@@ -63,6 +63,7 @@ li {
 
 .list.list-view-filter li {
   padding: 10px;
+  position: relative;
 }
 
 .list.grid-view-filter {
@@ -74,4 +75,11 @@ li {
   padding: 100px;
   margin-right: 10px;
   text-align: center;
+  position: relative;
+}
+
+.fa-trash{
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
