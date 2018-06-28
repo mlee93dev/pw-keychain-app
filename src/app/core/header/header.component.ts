@@ -1,18 +1,23 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import swal from 'sweetalert'
 import { Http, Headers } from '@angular/http';
 import { Subscription } from 'rxjs';
 import { AccountsService } from '../accounts.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  @ViewChild('f') searchInput: NgForm;
   isAuthenticated: boolean;
   authSubscription: Subscription;
+  accounts;
+  filteredAccounts;
+  accountsSub: Subscription;
 
   constructor(public authService: AuthService,
               private http: Http,
@@ -24,14 +29,28 @@ export class HeaderComponent implements OnInit {
       .subscribe((tokenExists: boolean) => {
         this.isAuthenticated = tokenExists;
       });
+    this.accountsSub = this.accountsService.accountsUpdate
+      .subscribe((accounts) => {
+        this.accounts = accounts;
+      });
   }
 
   ngOnDestroy() {
     if (this.authSubscription) this.authSubscription.unsubscribe();
+    if (this.accountsSub) this.accountsSub.unsubscribe();
   }
 
   onLogOut(){
     this.authService.logOut();
+  }
+
+  performSearch(event){
+    let accountsCopy = this.accounts;
+    let input = this.searchInput.value.search;
+    this.filteredAccounts = accountsCopy.filter((v,i) => {
+      return (v["name"].toLowerCase().startsWith(input.toLowerCase()));
+    });
+    this.accountsService.accountsFiltered.next(this.filteredAccounts);
   }
 
   onAdd(){

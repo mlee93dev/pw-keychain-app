@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   toggleList: boolean;
   accounts;
   accountsSub: Subscription;
+  accountsFilteredSub: Subscription;
   token: string;
 
   constructor(private http: Http,
@@ -39,18 +40,24 @@ export class HomeComponent implements OnInit, OnDestroy {
             else {
               swal({title: err.message, icon: 'error'});
             }
+          },
+          () => {
+            this.accountsService.accountsUpdate.next(this.accounts);
           }
         );
-     this.accountsSub = this.accountsService.accountsUpdate
-        .subscribe((newAccts: any[]) => {
-          this.accounts = newAccts;
-        });
+    this.accountsSub = this.accountsService.accountsUpdate
+      .subscribe((newAccts: any[]) => {
+        this.accounts = newAccts;
+      });
+    this.accountsFilteredSub = this.accountsService.accountsFiltered  
+      .subscribe((filteredAccts: any[]) => {
+        this.accounts = filteredAccts;
+      })
   }
 
   ngOnDestroy() {
-    if (this.accountsSub) {
-      this.accountsSub.unsubscribe();
-    }
+    if (this.accountsSub) this.accountsSub.unsubscribe();
+    if (this.accountsFilteredSub) this.accountsFilteredSub.unsubscribe();
   }
 
   onToggleList(){
