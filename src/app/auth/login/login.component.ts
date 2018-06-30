@@ -47,7 +47,37 @@ export class LoginComponent implements OnInit {
         this.authService.authChange.next(true);
         this.router.navigate(['']);
       }
-    )
+    );
+  }
+
+  onReset(){
+    swal('Password Reset', {
+      content: {
+        element: "input",
+        attributes: {
+          placeholder: "Type the email address of the registered account here"
+        }
+      },
+      closeOnClickOutside: true,
+      closeOnEsc: true
+    }).then((email) => {
+      if (!email) {
+        return false;
+      }
+      this.http.post('https://dry-stream-69567.herokuapp.com/forgot', {
+        "email" : email
+      }).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          swal('An email containing the necessary steps for your password reset has been sent to the specified email.');
+        }
+      );
+    })
   }
 
 }
