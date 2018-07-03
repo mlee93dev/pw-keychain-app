@@ -10,12 +10,16 @@
     </ul>
     <button *ngIf="isAuthenticated" class="btn btn-outline-success add" (click)="onAdd()">Add Account</button>
   </div>
-  <form #f="ngForm" class="form-inline my-2 my-lg-0">
-    <div *ngIf="isAuthenticated" class="input-group">
-      <div class="input-group prepend">
-        <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-      </div>
-      <input class="form-control mr-sm-2" type="search" aria-label="Search" (keyup)="performSearch($event)" id="search" name="search" ngModel>
+  <form #f="ngForm" class="form-inline">
+    <div *ngIf="isAuthenticated">
+      <section class="flexbox">
+        <div class="input-group prepend">
+          <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+        </div>
+        <div class="stretch">
+          <input type="search" aria-label="Search" (keyup)="performSearch($event)" id="search" name="search" ngModel>
+        </div>
+      </section>
     </div>
   </form>
   <a class="icon" style="cursor: pointer; font-size:15px; color: green" (click)="toggleIcon()">&#9776;</a>

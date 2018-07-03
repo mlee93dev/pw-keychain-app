@@ -2,6 +2,14 @@
   margin-right:30px;
 }
 
+.flexbox {
+  display: flex;
+}
+
+.flexbox .stretch {
+  flex: 1;
+}
+
 .topnav{
   display: none;
   cursor: pointer;
