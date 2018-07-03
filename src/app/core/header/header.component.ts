@@ -53,6 +53,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.accountsService.accountsFiltered.next(this.filteredAccounts);
   }
 
+  toggleIcon(){
+    const x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    }
+    else {
+      x.className = "topnav";
+    }
+  }
+
   onAdd(){
     swal('Account / Service Name Input', {
       content: {

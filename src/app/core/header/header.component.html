@@ -1,19 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-default">
+    <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
+  </div>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item" *ngIf="isAuthenticated">
         <a class="nav-link" (click)="onLogOut()" >Logout</a>
       </li>
     </ul>
-    <form #f="ngForm" class="form-inline my-2 my-lg-0">
-      <button *ngIf="isAuthenticated" class="btn btn-outline-success add" (click)="onAdd()">Add Account</button>
-      <div *ngIf="isAuthenticated">
-        <input class="form-control mr-sm-2" type="search" aria-label="Search" (keyup)="performSearch($event)" id="search" name="search" ngModel>
-        <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
-      </div>
-    </form>
+    <button *ngIf="isAuthenticated" class="btn btn-outline-success add" (click)="onAdd()">Add Account</button>
   </div>
+  <form #f="ngForm" class="form-inline my-2 my-lg-0">
+    <div *ngIf="isAuthenticated" class="input-group">
+      <div class="input-group prepend">
+        <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control mr-sm-2" type="search" aria-label="Search" (keyup)="performSearch($event)" id="search" name="search" ngModel>
+    </div>
+  </form>
+  <a class="icon" style="cursor: pointer; font-size:15px; color: green" (click)="toggleIcon()">&#9776;</a>
 </nav>
+<div class="topnav" id="myTopnav">
+  <div *ngIf="isAuthenticated">
+    <a (click)="onAdd()">Add Account</a>
+    <a (click)="onLogout()">Logout</a>
+  </div>
+</div>
