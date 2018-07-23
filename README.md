@@ -1,6 +1,12 @@
-# PwKeychain
+# PwKeychain (Code last updated 7/3/2018, README last updated 7/5/2018)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
+
+## App Purpose
+
+This is the frontend of the PwKeychain app. The PwKeychain app is a personal project that serves to practice the creation of a backend coded by NodeJS, and the accompanying challenges that comes with trying to connect a frontend to a backend. It is a simple version of a password manager such as Safari's keychain.
+
+The Angular framework was chosen due to familiarity and continuing relevancy as of May 2018.
 
 ## Development server
 
